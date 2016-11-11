@@ -1048,7 +1048,7 @@
       <workItem from="1478680304310" duration="4030000" />
       <workItem from="1478741387086" duration="18418000" />
       <workItem from="1478827928574" duration="13412000" />
-      <workItem from="1478867262633" duration="240000" />
+      <workItem from="1478867262633" duration="754000" />
     </task>
     <task id="LOCAL-00001" summary="add decompile">
       <created>1478591632440</created>
@@ -1066,7 +1066,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61860000" />
+    <option name="totallyTimeSpent" value="62374000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
