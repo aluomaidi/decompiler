@@ -1,5 +1,10 @@
 package luozj.structure.attribute;
 
+import luozj.parser.ClassParser;
+
+import java.io.DataInputStream;
+import java.io.IOException;
+
 /**
  * Created by luozj on 2016/11/9.
  */
@@ -17,67 +22,25 @@ public class CodeAttr extends AttributeInfo {
         super(attrName_index, attr_length, info);
     }
 
-    public short getMax_stack() {
-        return max_stack;
+    public static CodeAttr init(short attrName_index, int attr_length, byte[] info, DataInputStream stream, ClassParser classParser) throws IOException {
+        CodeAttr codeAttr = new CodeAttr(attrName_index, attr_length, info);
+        codeAttr.max_stack = stream.readShort();
+        codeAttr.max_locals = stream.readShort();
+        codeAttr.code_length = stream.readInt();
+        codeAttr.code = new byte[codeAttr.code_length];
+        stream.read(codeAttr.code);
+        codeAttr.exception_table_length = stream.readShort();
+        codeAttr.exception_table = new CodeExceptionAttr[codeAttr.exception_table_length];
+        for (short i = 0; i < codeAttr.exception_table_length; i++) {
+            codeAttr.exception_table[i] = new CodeExceptionAttr(stream.readShort(), stream.readShort(), stream.readShort(), stream.readShort());
+        }
+        codeAttr.attr_count = stream.readShort();
+        codeAttr.attrs = new AttributeInfo[codeAttr.attr_count];
+        for (short i = 0; i < codeAttr.attr_count; i++) {
+            codeAttr.attrs[i] = classParser.parseAttr(stream);
+        }
+        return codeAttr;
     }
 
-    public void setMax_stack(short max_stack) {
-        this.max_stack = max_stack;
-    }
 
-    public short getMax_locals() {
-        return max_locals;
-    }
-
-    public void setMax_locals(short max_locals) {
-        this.max_locals = max_locals;
-    }
-
-    public int getCode_length() {
-        return code_length;
-    }
-
-    public void setCode_length(int code_length) {
-        this.code_length = code_length;
-    }
-
-    public byte[] getCode() {
-        return code;
-    }
-
-    public void setCode(byte[] code) {
-        this.code = code;
-    }
-
-    public short getException_table_length() {
-        return exception_table_length;
-    }
-
-    public void setException_table_length(short exception_table_length) {
-        this.exception_table_length = exception_table_length;
-    }
-
-    public CodeExceptionAttr[] getException_table() {
-        return exception_table;
-    }
-
-    public void setException_table(CodeExceptionAttr[] exception_table) {
-        this.exception_table = exception_table;
-    }
-
-    public short getAttr_count() {
-        return attr_count;
-    }
-
-    public void setAttr_count(short attr_count) {
-        this.attr_count = attr_count;
-    }
-
-    public AttributeInfo[] getAttrs() {
-        return attrs;
-    }
-
-    public void setAttrs(AttributeInfo[] attrs) {
-        this.attrs = attrs;
-    }
 }

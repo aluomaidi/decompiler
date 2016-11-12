@@ -172,7 +172,7 @@ public class ClassParser {
         }
         return methods;
     }
-    private AttributeInfo parseAttr(DataInputStream inputStream) throws IOException {
+    public AttributeInfo parseAttr(DataInputStream inputStream) throws IOException {
         short attrNameIndex = inputStream.readShort();
         int attrLength = inputStream.readInt();
         byte[] info = new byte[attrLength];
@@ -184,27 +184,7 @@ public class ClassParser {
         DataInputStream stream = new DataInputStream(new ByteArrayInputStream(info));
         AttributeInfo attrInfo = null;
         if (Constants.ATTR_CODE.equals(attrName)) {
-            CodeAttr codeAttr = new CodeAttr(attrNameIndex, attrLength, info);
-            codeAttr.setMax_stack(stream.readShort());
-            codeAttr.setMax_locals(stream.readShort());
-            codeAttr.setCode_length(stream.readInt());
-            byte[] code = new byte[codeAttr.getCode_length()];
-            stream.read(code);
-            codeAttr.setCode(code);
-            short length = stream.readShort();
-            codeAttr.setException_table_length(length);
-            CodeExceptionAttr[] codeExceptionAttrs = new CodeExceptionAttr[length];
-            for (short i = 0; i < length; i++) {
-                codeExceptionAttrs[i] = new CodeExceptionAttr(stream.readShort(), stream.readShort(), stream.readShort(), stream.readShort());
-            }
-            codeAttr.setException_table(codeExceptionAttrs);
-            short attr_count = stream.readShort();
-            AttributeInfo[] attrs = new AttributeInfo[attr_count];
-            codeAttr.setAttr_count(attr_count);
-            for (short i = 0; i < attr_count; i++) {
-                attrs[i] = parseAttr(stream);
-            }
-            attrInfo = codeAttr;
+            return CodeAttr.init(attrNameIndex, attrLength, info, stream, this);
         } else if (Constants.ATTR_CONSTANTVALUE.equals(attrName)) {
             return ConstantValueAttr.init(attrNameIndex, attrLength, info, stream);
         }  else if (Constants.ATTR_DEPRECATED.equals(attrName)) {
@@ -219,6 +199,8 @@ public class ClassParser {
             return LineNumberTableAttr.init(attrNameIndex, attrLength, info, stream);
         } else if (Constants.ATTR_LOCALVARIABLETABLE.equals(attrName)) {
             return LocalVariableTableAttr.init(attrNameIndex, attrLength, info, stream);
+        } else if (Constants.ATTR_STACKMAPTABLE.equals(attrName)) {
+
         }
         return attrInfo;
     }
