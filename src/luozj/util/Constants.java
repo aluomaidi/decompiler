@@ -18,7 +18,7 @@ public class Constants {
     public static final String ATTR_SIGNATURE= "Signature";
     public static final String ATTR_SOURCEFILE = "SourceFile";
     public static final String ATTR_SOURCEDEBUGEXTENSION= "SourceDebugExtension";
-    public static final String ATTR_SYNTHETIC= "Synthetic";
+    public static final String ATTR_SYNTHETIC= "SyntheticAttr";
     public static final String ATTR_LOCALVARIABLETYPETABLE= "LocalVariableTypeTable";
     public static final String ATTR_RUNTIMEVISIBLEANNOTATIONS= "RuntimeVisibleAnnotations";
     public static final String ATTR_RUNTIMEINVISIBLEANNOTATIONS= "RuntimeInvisibleAnnotations";

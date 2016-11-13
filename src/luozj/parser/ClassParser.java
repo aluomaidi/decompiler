@@ -201,6 +201,16 @@ public class ClassParser {
             return LocalVariableTableAttr.init(attrNameIndex, attrLength, info, stream);
         } else if (Constants.ATTR_STACKMAPTABLE.equals(attrName)) {
 
+        } else if (Constants.ATTR_SIGNATURE.equals(attrName)) {
+            return SignatureAttr.init(attrNameIndex, attrLength, info, stream);
+        } else if (Constants.ATTR_SOURCEFILE.equals(attrName)) {
+            return SourceFileAttr.init(attrNameIndex, attrLength, info, stream);
+        } else if (Constants.ATTR_SOURCEDEBUGEXTENSION.equals(attrName)) {
+            return SourceDebugExtensionAttr.init(attrNameIndex, attrLength, info, stream);
+        } else if (Constants.ATTR_SYNTHETIC.equals(attrName)) {
+            return SyntheticAttr.init(attrNameIndex, attrLength, info, stream);
+        } else if (Constants.ATTR_LOCALVARIABLETYPETABLE.equals(attrName)) {
+            return LocalVariableTypeTableAttr.init(attrNameIndex, attrLength, info, stream);
         }
         return attrInfo;
     }
