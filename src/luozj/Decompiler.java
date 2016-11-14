@@ -12,11 +12,11 @@ import java.io.IOException;
 public class Decompiler {
     public static void main(String[] args) throws IOException {
         String path = "E:\\ideaProject\\decompiler\\out\\production\\decompiler\\org\\fenixsoft\\clazz\\TestClass.class";
-        Decompiler.decompile(path);
+        ClassInfo classinfo = Decompiler.decompile(path);
     }
-    public static void decompile(String path) throws IOException {
+    public static ClassInfo decompile(String path) throws IOException {
         byte[] bytes = ByteUtil.getBytes(path);
         ClassParser classParser = new ClassParser(bytes, new ClassInfo());
-        classParser.parse();
+        return classParser.parse();
     }
 }
