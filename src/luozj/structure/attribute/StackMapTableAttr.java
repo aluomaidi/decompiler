@@ -57,8 +57,29 @@ public class StackMapTableAttr extends AttributeInfo {
         return verificationTypeInfos;
     }
     private static VerificationTypeInfo parseVerificationTypeInfo(DataInputStream stream) throws IOException {
-        VerificationTypeInfo verificationTypeInfo = null;
-        return verificationTypeInfo;
+        byte tag = stream.readByte();
+        switch (tag) {
+            case 0 :
+                return new TopVariableInfo(tag);
+            case 1 :
+                return new IntegerVariableInfo(tag);
+            case 2 :
+                return new FloatVariableVnfo(tag);
+            case 3 :
+                return new DoubleVariableInfo(tag);
+            case 4 :
+                return new LongVariableInfo(tag);
+            case 5 :
+                return new NullVariableInfo(tag);
+            case 6 :
+                return new UninitializedThisVariableInfo(tag);
+            case 7 :
+                return new ObjectVariableInfo(tag, stream.readShort());
+            case 8 :
+                return new UninitializedVariableInfo(tag, stream.readShort());
+            default:
+                return null;
+        }
     }
     private static class StackMapFrame {
         protected byte frame_type;
