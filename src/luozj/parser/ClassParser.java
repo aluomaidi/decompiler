@@ -200,7 +200,7 @@ public class ClassParser {
         } else if (Constants.ATTR_LOCALVARIABLETABLE.equals(attrName)) {
             return LocalVariableTableAttr.init(attrNameIndex, attrLength, info, stream);
         } else if (Constants.ATTR_STACKMAPTABLE.equals(attrName)) {
-
+            return StackMapTableAttr.init(attrNameIndex, attrLength, info, stream);
         } else if (Constants.ATTR_SIGNATURE.equals(attrName)) {
             return SignatureAttr.init(attrNameIndex, attrLength, info, stream);
         } else if (Constants.ATTR_SOURCEFILE.equals(attrName)) {
@@ -211,6 +211,18 @@ public class ClassParser {
             return SyntheticAttr.init(attrNameIndex, attrLength, info, stream);
         } else if (Constants.ATTR_LOCALVARIABLETYPETABLE.equals(attrName)) {
             return LocalVariableTypeTableAttr.init(attrNameIndex, attrLength, info, stream);
+        } else if (Constants.ATTR_RUNTIMEVISIBLEANNOTATIONS.equals(attrName)) {
+            return RuntimeVisibleAnnotionAttr.init(attrNameIndex, attrLength, info, stream);
+        } else if (Constants.ATTR_RUNTIMEINVISIBLEANNOTATIONS.equals(attrName)) {
+            return RuntimeInvisibleAnnotionAttr.init(attrNameIndex, attrLength, info, stream);
+        } else if (Constants.ATTR_RUNTIMEVISIBLEPARAMETERANNOTATIONS.equals(attrName)) {
+            return RuntimeVisibleParameterAnnotationAttr.init(attrNameIndex, attrLength, info, stream);
+        } else if (Constants.ATTR_RUNTIMEINVISIBLEPARAMETERANNOTATIONS.equals(attrName)) {
+            return RuntimeInvisibleParameterAnnotationAttr.init(attrNameIndex, attrLength, info, stream);
+        } else if (Constants.ATTR_ANNOTATIONDEFAULT.equals(attrName)) {
+            return AnnotationDefaultAttr.init(attrNameIndex, attrLength, info, stream);
+        } else if (Constants.ATTR_BOOTSTRAPMETHODS.equals(attrName)) {
+            return BootstrapMethodAttr.init(attrNameIndex, attrLength, info, stream);
         }
         return attrInfo;
     }
